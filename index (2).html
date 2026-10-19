@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>رنگوں کا کھیل — Färgspel</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fffaf0;color:#2b2b2b;font-family:'Noto Nastaliq Urdu','Noto Naskh Arabic',serif;line-height:2.2;text-align:center}
+.w{max-width:640px;margin:0 auto;padding:10px 14px 30px}
+h1{margin:4px 0;font-size:26px;background:linear-gradient(90deg,#e53935,#fb8c00,#f9c20a,#43a047,#1e88e5,#8e24aa);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:2.1}
+.bk{display:inline-block;font-size:15px;color:#8e24aa;text-decoration:none;border:2px solid #8e24aa;border-radius:14px;padding:0 12px;line-height:2}
+button{font:inherit;border:3px solid #8e24aa;background:#fff;color:#8e24aa;border-radius:18px;padding:0 16px;cursor:pointer;font-size:17px;line-height:2.1}
+button.on{background:#8e24aa;color:#fff}
+input{font:inherit;font-size:20px;border:3px solid #1e88e5;border-radius:16px;padding:2px 14px;width:80%;max-width:360px;text-align:center}
+.info{font-size:16px;margin:4px 0}
+.lv{display:grid;gap:8px;margin:10px 0}
+.lv button{text-align:right;display:flex;justify-content:space-between;align-items:center;border-color:var(--c);color:var(--c);padding:2px 16px}
+.lv small{font:13px system-ui,sans-serif;color:#666}
+.sw{width:150px;height:150px;border-radius:50%;margin:8px auto;border:6px solid #fff;box-shadow:0 4px 14px #0004}
+.wd{font-size:40px;font-weight:700;color:#8e24aa;line-height:2}
+.op{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0}
+.op button{font-size:22px;border-color:#1e88e5;color:#1e88e5;min-height:54px;padding:2px 8px}
+.op button.g,.t.g{background:#43a047!important;border-color:#43a047!important;color:#fff!important}
+.op button.x,.t.x{background:#e53935!important;border-color:#e53935!important;color:#fff!important}
+.sl{min-height:80px;border:4px dashed #8e24aa;border-radius:18px;font-size:34px;line-height:2.1;margin:8px 0;padding:0 10px;background:#fff}
+.sl.g{border-color:#43a047;color:#43a047;border-style:solid}.sl.x{border-color:#e53935}
+.tl{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px 0}
+.t{min-width:54px;height:54px;font-size:26px;border-radius:14px;border:3px solid #fb8c00;color:#fb8c00;padding:0 10px;line-height:1.7}.t.u{opacity:.25}
+.r{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:6px 0}
+.cert{border:8px double #8e24aa;border-radius:22px;background:#fff;padding:10px 14px;margin:10px 0;position:relative}
+.cert .sr{font:700 20px system-ui,sans-serif;color:#1a237e}.cert h2{margin:0;font-size:28px;color:#e53935;line-height:2}.cert .nm{font-size:34px;font-weight:700;color:#1e88e5;border-bottom:3px dotted #bbb;margin:4px 20px;line-height:2.1}
+.cert .st{font-size:38px;color:#f9c20a;letter-spacing:6px}.cert .sg{display:flex;justify-content:space-between;font-size:14px;margin-top:12px}
+[dir=ltr]{unicode-bidi:isolate;direction:ltr;font-family:system-ui,sans-serif}
+textarea{font:inherit;font-size:22px;width:94%;border:3px solid #1e88e5;border-radius:16px;padding:6px 12px;line-height:2.2}.rp{background:#f3f7ff;border:3px solid #1e88e5;border-radius:16px;padding:4px 14px;margin:10px 0;text-align:right}.rp h3{margin:6px 0 0;font-size:18px;color:#1a237e;line-height:2}.wbox{background:#fff;border:2px dashed #aaa;border-radius:12px;padding:4px 12px;font-size:20px;min-height:50px}.rp ul{margin:4px 0;padding-inline-start:20px;font-size:16px}
+@media print{body *{visibility:hidden}#cert,#cert *{visibility:visible}#cert{position:absolute;left:0;top:0;width:100%}}
+</style>
+</head>
+<body><div class="w">
+<a class="bk" href="../">⬅ تمام کھیل</a>
+<h1>🎨 رنگوں کا کھیل</h1>
+<div id="a"></div>
+</div>
+<script>
+/* استاد کا ای میل یہاں لکھیں (مثال: 'name@school.se'). خالی ہو تو نتیجہ صرف کاپی ہوگا۔ */
+var TEACHER_EMAIL='';
+var C=[["سرخ","Röd","#e53935"],["نیلا","Blå","#1e88e5"],["پیلا","Gul","#f9c20a"],["سبز","Grön","#43a047"],["نارنجی","Orange","#fb8c00"],["جامنی","Lila","#8e24aa"],["گلابی","Rosa","#ec6fa5"],["بھورا","Brun","#8d5524"],["کالا","Svart","#212121"],["سفید","Vit","#ffffff"]];
+var LV=[{t:'لیول 1 — شروع',d:'4 رنگ',n:4,c:'#43a047',s:'Nivå 1'},{t:'لیول 2 — اچھا',d:'6 رنگ، اردو اور سویڈش',n:6,c:'#1e88e5',s:'Nivå 2'},{t:'لیول 3 — بہت اچھا',d:'10 رنگ، اردو اور سویڈش',n:10,c:'#fb8c00',s:'Nivå 3'},{t:'لیول 4 — املا',d:'رنگ کا نام خود بنائیں',n:10,c:'#8e24aa',s:'Nivå 4'},{t:'لیول 5 — جملے',d:'خالی جگہ اور جملہ سازی',n:10,c:'#e53935',s:'Nivå 5'}];
+var SEN=[["آسمان نیلا ہے۔","نیلا"],["گھاس سبز ہے۔","سبز"],["سورج پیلا ہے۔","پیلا"],["ٹماٹر سرخ ہے۔","سرخ"],["برف سفید ہے۔","سفید"],["کوئلہ کالا ہے۔","کالا"],["گاجر نارنجی ہے۔","نارنجی"],["ریچھ بھورا ہے۔","بھورا"],["بینگن جامنی ہے۔","جامنی"],["فلیمنگو گلابی ہے۔","گلابی"]];
+var A=document.getElementById('a'),st={name:'',lv:0,i:0,sc:0,q:[]},fx=false,an=false;
+function sh(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function S(x){return '<span dir="ltr">'+x+'</span>'}
+function pick(p,n){var r=[];while(r.length<n)r=r.concat(sh(p));return r.slice(0,n)}
+function home(){
+  var h='<div class="info">اپنا نام لکھیں اور لیول چنیں</div><input id="nm" placeholder="میرا نام" value="'+st.name.replace(/"/g,'')+'"><div class="lv">';
+  LV.forEach(function(l,k){h+='<button style="--c:'+l.c+'" onclick="go('+k+')"><span>'+l.t+'<br><small>'+l.d+'</small></span><small dir="ltr">'+l.s+'</small></button>'});
+  A.innerHTML=h+'</div><div class="info">10 سوال • آخر میں سرٹیفکیٹ ملے گا</div>'}
+function go(k){
+  var n=document.getElementById('nm').value.trim();
+  if(!n){document.getElementById('nm').style.borderColor='#e53935';document.getElementById('nm').placeholder='پہلے نام لکھیں';return}
+  st.name=n;st.lv=k;st.i=0;st.sc=0;st.write='';var pool=C.slice(0,LV[k].n),q=[],c;
+  if(k==0)pick(pool,10).forEach(function(c){q.push({t:'name',c:c})});
+  else if(k==1){pick(pool,10).forEach(function(c,i){q.push({t:i<5?'name':'sv',c:c})})}
+  else if(k==2){pick(pool,10).forEach(function(c,i){q.push({t:i<4?'name':(i<7?'sv':'ur2sv'),c:c})})}
+  else if(k==3){sh(pool).forEach(function(c){q.push({t:'spell',c:c})})}
+  else{var ss=sh(SEN);ss.slice(0,5).forEach(function(s){q.push({t:'cloze',s:s})});ss.slice(5,10).forEach(function(s){q.push({t:'build',s:s})})}
+  st.q=sh(q);if(k==1||k==2)st.q=q;nx()}
+function hd(){return '<div class="info">سوال '+(st.i+1)+' / 10 · اسکور: '+st.sc+' · '+st.name+'</div>'}
+function nx(){if(st.i>=st.q.length){wr();return}an=false;fx=false;var q=st.q[st.i];({name:qn,sv:qs,ur2sv:qu,spell:qp,cloze:qc,build:qb})[q.t](q)}
+function ops(c,k,key){var n=Math.min(4,LV[st.lv].n);var o=sh(sh(C.slice(0,LV[st.lv].n).filter(function(x){return x!=c})).slice(0,n-1).concat([c]));window._o=o;window._c=c;return o}
+function qn(q){var o=ops(q.c);var h=hd()+'<div class="info">یہ کون سا رنگ ہے؟</div><div class="sw" style="background:'+q.c[2]+'"></div><div class="op">';o.forEach(function(x,k){h+='<button id="o'+k+'" onclick="pk('+k+')">'+x[0]+'</button>'});A.innerHTML=h+'</div>'}
+function qs(q){var o=ops(q.c);var h=hd()+'<div class="info">اس رنگ کا سویڈش نام کیا ہے؟</div><div class="sw" style="background:'+q.c[2]+'"></div><div class="op">';o.forEach(function(x,k){h+='<button id="o'+k+'" onclick="pk('+k+')">'+S(x[1])+'</button>'});A.innerHTML=h+'</div>'}
+function qu(q){var o=ops(q.c);var h=hd()+'<div class="info">اس لفظ کا سویڈش نام کیا ہے؟</div><div class="wd">'+q.c[0]+'</div><div class="op">';o.forEach(function(x,k){h+='<button id="o'+k+'" onclick="pk('+k+')">'+S(x[1])+'</button>'});A.innerHTML=h+'</div>'}
+function pk(k){if(an)return;var q0=st.q[st.i];lg(q0,ot(q0,window._o[k]));var ok=window._o[k]==window._c,e=document.getElementById('o'+k);if(ok){an=true;e.className='g';if(!fx)st.sc++;setTimeout(function(){st.i++;nx()},900)}else{fx=true;e.className='x'}}
+var T,B;
+function qp(q){T=sh(Array.from(q.c[0]));B=[];dp('')}
+function dp(c){var q=st.q[st.i];var h=hd()+'<div class="info">رنگ دیکھیں، اس کا نام حروف سے بنائیں</div><div class="sw" style="background:'+q.c[2]+';width:90px;height:90px"></div><div class="info">'+S(q.c[1])+'</div><div class="sl '+c+'">'+B.map(function(i){return T[i]}).join('')+'</div><div class="tl">';
+  T.forEach(function(ch,i){h+='<button class="t'+(B.indexOf(i)>-1?' u':'')+'" onclick="tp('+i+')">'+ch+'</button>'});
+  A.innerHTML=h+'</div><div class="r"><button onclick="B.pop();dp(\'\')">⌫ مٹائیں</button><button class="on" onclick="cp()">✓ چیک کریں</button></div>'}
+function tp(i){if(B.indexOf(i)>-1)return;B.push(i);dp('')}
+function cp(){var q=st.q[st.i],bw=B.map(function(i){return T[i]}).join(''),ok=bw==q.c[0];lg(q,bw);if(ok){if(!fx)st.sc++;dp('g');setTimeout(function(){st.i++;nx()},1000)}else{fx=true;dp('x');setTimeout(function(){B=[];dp('')},800)}}
+function qc(q){var c=C.filter(function(x){return x[0]==q.s[1]})[0];var o=sh(sh(C.filter(function(x){return x!=c})).slice(0,3).concat([c]));window._o=o;window._c=c;
+  var h=hd()+'<div class="info">خالی جگہ کے لیے صحیح رنگ چنیں</div><div class="sl" style="font-size:28px">'+q.s[0].replace(q.s[1],'<b>______</b>')+'</div><div class="op">';o.forEach(function(x,k){h+='<button id="o'+k+'" onclick="pk('+k+')">'+x[0]+'</button>'});A.innerHTML=h+'</div>'}
+function qb(q){T=sh(q.s[0].split(' '));B=[];db('')}
+function db(c){var q=st.q[st.i];var h=hd()+'<div class="info">الفاظ کو ترتیب دے کر جملہ بنائیں</div><div class="sl '+c+'" style="font-size:26px">'+B.map(function(i){return T[i]}).join(' ')+'</div><div class="tl">';
+  T.forEach(function(w,i){h+='<button class="t'+(B.indexOf(i)>-1?' u':'')+'" style="font-size:22px" onclick="bp('+i+')">'+w+'</button>'});
+  A.innerHTML=h+'</div><div class="r"><button onclick="B.pop();db(\'\')">⌫ مٹائیں</button><button class="on" onclick="cb()">✓ چیک کریں</button></div>'}
+function bp(i){if(B.indexOf(i)>-1)return;B.push(i);db('')}
+function cb(){var q=st.q[st.i],bw=B.map(function(i){return T[i]}).join(' '),ok=bw==q.s[0];lg(q,bw);if(ok){if(!fx)st.sc++;db('g');setTimeout(function(){st.i++;nx()},1100)}else{fx=true;db('x');setTimeout(function(){B=[];db('')},800)}}
+function dt(){return new Date().toLocaleDateString('sv-SE')}
+function exp(q){return q.t=='name'||q.t=='spell'?q.c[0]:(q.t=='sv'||q.t=='ur2sv')?q.c[1]:q.t=='cloze'?q.s[1]:q.s[0]}
+function ot(q,x){return (q.t=='sv'||q.t=='ur2sv')?x[1]:x[0]}
+function lg(q,a){if(q.first===undefined)q.first=a}
+function qd(q){return {name:'رنگ کا نام',sv:'Svenska',ur2sv:'Urdu→Svenska',spell:'املا',cloze:q.s?q.s[0]:'',build:'جملہ سازی'}[q.t]}
+function esc(x){return String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function mis(){return st.q.map(function(q,i){return q.first===exp(q)?null:'سوال '+(i+1)+' ('+qd(q)+'): بچے کا جواب «'+q.first+'» — صحیح «'+exp(q)+'»'}).filter(Boolean)}
+function wr(){var l=st.lv,p=l<2?'ایک جملہ لکھیں: میرا پسندیدہ رنگ ________ ہے۔':(l==2?'اپنے پسندیدہ رنگ کے بارے میں 2 جملے لکھیں۔':'اپنے پسندیدہ رنگ کے بارے میں 3 جملے لکھیں اور بتائیں کہ وہ آپ کو کیوں پسند ہے۔');
+  A.innerHTML='<div class="info">🎉 سوال مکمل! اب لکھنے کا کام</div><div class="info" style="font-size:19px">'+p+'</div><textarea id="wt" rows="5" dir="rtl" placeholder="یہاں لکھیں..."></textarea><div class="r"><button class="on" onclick="sw()">✓ جمع کریں</button></div>'}
+function sw(){var t=document.getElementById('wt'),v=t.value.trim();if(!v){t.style.borderColor='#e53935';t.placeholder='پہلے کچھ لکھیں';return}st.write=v;done()}
+function rep(){var m=mis();return '<div class="rp"><h3>📝 بچے کی تحریر</h3><div class="wbox">'+esc(st.write).replace(/\n/g,'<br>')+'</div><h3>❌ غلطیاں ('+m.length+')</h3>'+(m.length?'<ul>'+m.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>':'<div class="info">کوئی غلطی نہیں — سب پہلی کوشش میں صحیح!</div>')+'</div>'}
+function txt(){var l=LV[st.lv],m=mis();return 'Färgspel – resultat\nNamn: '+st.name+'\nNivå: '+l.s+' ('+l.t+')\nPoäng: '+st.sc+'/10\nDatum: '+dt()+'\n\nSkrivuppgift / تحریر:\n'+st.write+'\n\nFel / غلطیاں ('+m.length+'):\n'+(m.length?m.join('\n'):'inga fel')}
+function done(){var s=st.sc,stars=s>=9?3:(s>=7?2:1),l=LV[st.lv];
+  A.innerHTML='<div class="cert" id="cert"><div class="sr">SAIMA RESOURCES</div><h2>سرٹیفکیٹ</h2><div class="info">یہ سرٹیفکیٹ دیا جاتا ہے</div><div class="nm">'+st.name.replace(/</g,'')+'</div><div class="info">رنگوں کے کھیل میں '+l.t+' مکمل کرنے پر</div><div class="st">'+'★'.repeat(stars)+'<span style="color:#ddd">'+'★'.repeat(3-stars)+'</span></div><div class="info" style="font-size:22px"><b>'+s+' / 10</b></div><div class="sg"><span>تاریخ: '+S(dt())+'</span><span>استاد کے دستخط: ________</span></div></div>'
+   +rep()+'<div class="r"><button class="on" onclick="sendR()">📧 نتیجہ بھیجیں</button><button onclick="cpR()">📋 نتیجہ کاپی کریں</button><button onclick="window.print()">🖨️ پرنٹ</button></div><div class="r"><button onclick="home()">🔁 دوبارہ کھیلیں</button></div><div class="info" id="msg"></div>'}
+function sendR(){if(TEACHER_EMAIL){location.href='mailto:'+TEACHER_EMAIL+'?subject='+encodeURIComponent('Färgspel – '+st.name)+'&body='+encodeURIComponent(txt())}else cpR()}
+function cpR(){var m=document.getElementById('msg');if(navigator.clipboard)navigator.clipboard.writeText(txt()).then(function(){m.textContent='نتیجہ کاپی ہو گیا — اب میسج یا ای میل میں پیسٹ کریں'},function(){m.textContent=txt()});else m.textContent=txt()}
+home();
+</script>
+</body>
+</html>
